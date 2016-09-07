@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hosts name="Mein Monitor">
+    <group name="Produktion">
+        <host name="simas GmbH" url="https://www.simas.ch" />
+        <host name="Google" url="https://www.google.com" />
+    </group>
+</hosts>

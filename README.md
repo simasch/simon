@@ -27,7 +27,7 @@ java -jar simon-0.0.1-SNAPSHOT.jar myhosts.xml
 
 The result is either JSON or XML when accessing [http://localhost:4567/check](http://localhost:4567/check) or a simple web page on [http://localhost:4567/check](http://localhost:4567/check)
 
-## License
+# License
 
 simon is open source and free software under Apache License, Version 2:
 

@@ -24,7 +24,7 @@ The configuration is done in a XML file. i.e.
 To start it use
 
 ```
-java -jar simon-0.0.1-SNAPSHOT.jar myhosts.xml
+java -jar simon-1.0.0.jar myhosts.xml
 ```
 
 ## See

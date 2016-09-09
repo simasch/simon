@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>simon</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="10" />
         <script src="jquery-3.1.0.min.js"></script>
         <script>
             $(document).ready(function () {
-                $.get("check", function (data) {
-                    $("#content").html(JSON.stringify(data));
+                $.get('check', function (hosts) {
+                    var html = '<h1>' + hosts.name + '</h1>';
+                    hosts.group.forEach(function (group) {
+                        html += '<h2>' + group.name + '</h2>';
+                        group.host.forEach(function (host) {
+                            var color = host.status > 200 ? 'LightRed' : 'LightGreen';
+                            html += '<table><tr style="background-color: ' + color + '">';
+                            html += '<td width="200">' + host.name + '</td>';
+                            html += '<td width="300">' + host.url + '</td>';
+                            html += '<td width="50">' + host.status + '</td>';
+                            html += '<td width="50" align="right">' + host.time + ' ms</td>';
+                            html += '</tr></table>';
+                        });
+                    });
+                    $('#content').html(html);
                 });
             });
         </script>
     </head>
     <body>
-        <div id="content">TODO write content</div>
+        <div id="content">Loading...</div>
     </body>
 </html>

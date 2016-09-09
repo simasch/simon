@@ -4,10 +4,13 @@
         <title>simon</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="refresh" content="10" />
         <script src="jquery-3.1.0.min.js"></script>
         <script>
             $(document).ready(function () {
+                check();
+            });
+
+            function check() {
                 $.get('check', function (hosts) {
                     var html = '<h1>' + hosts.name + '</h1>';
                     hosts.group.forEach(function (group) {
@@ -22,12 +25,35 @@
                             html += '</tr></table>';
                         });
                     });
+                    html += "<br>";
+                    html += '<p>Last refresh: ' + new Date() + '</p>';
+                    
                     $('#content').html(html);
                 });
-            });
+            }
+
+            var interval;
+            var autorefresh = false;
+
+            function switchAutoRefresh() {
+                autorefresh = !autorefresh;
+                
+                var text = autorefresh ? 'Toggle auto refresh off' : 'Toggle auto refresh on';
+                $('#autorefresh').text(text);
+                
+                if (autorefresh) {
+                    interval = setInterval(function () {
+                        check();
+                    }, 10000);
+                } else {
+                    clearInterval(interval);
+                }
+            }
         </script>
     </head>
     <body>
         <div id="content">Loading...</div>
+
+        <a id="autorefresh" href="#" onclick="switchAutoRefresh()">Toggle auto refresh on</a>
     </body>
 </html>

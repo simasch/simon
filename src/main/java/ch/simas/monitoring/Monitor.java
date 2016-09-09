@@ -20,7 +20,7 @@ public class Monitor {
 
     public static void main(String[] args) throws JAXBException {
         if (args.length != 1) {
-            throw new IllegalArgumentException("XML configuration missing");
+            throw new IllegalArgumentException("First parameter must be location of hosts configuration file");
         }
         Hosts hosts = loadConfiguration(args[0]);
 

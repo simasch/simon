@@ -1,9 +1,13 @@
-$(document).ready(function () {
+window.onload = function () {
     check();
-});
+}
 
 function check() {
-    $.get('check', function (hosts) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", 'check', true);
+    xhr.onload = function () {
+        var hosts = JSON.parse(xhr.responseText);
+
         var html = '<h1>' + hosts.name + '</h1>';
         hosts.group.forEach(function (group) {
             html += '<h2>' + group.name + '</h2>';
@@ -18,11 +22,12 @@ function check() {
             });
         });
         html += "<br>";
-        
-        html += '<p>Last refresh: ' + $.format.date(new Date(), "dd.MM.yyyy HH:mm:ss.SSSk") + '</p>';
 
-        $('#content').html(html);
-    });
+        html += '<p>Last refresh: ' + formatTimestamp() + '</p>';
+
+        document.getElementById('content').innerHTML = html;
+    };
+    xhr.send();
 }
 
 var interval;
@@ -32,7 +37,7 @@ function switchAutoRefresh() {
     autorefresh = !autorefresh;
 
     var text = autorefresh ? 'Toggle auto refresh off' : 'Toggle auto refresh on';
-    $('#autorefresh').text(text);
+    document.getElementById('autorefresh').value = text;
 
     if (autorefresh) {
         interval = setInterval(function () {
@@ -40,5 +45,19 @@ function switchAutoRefresh() {
         }, 10000);
     } else {
         clearInterval(interval);
+    }
+}
+
+function formatTimestamp() {
+    var date = new Date();
+    return pad(date.getDate()) + '.' + pad((date.getMonth() + 1)) + '.' + date.getFullYear() + ' '
+            + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+}
+
+function pad(value) {
+    if (value < 10) {
+        return '0' + value;
+    } else {
+        return value;
     }
 }

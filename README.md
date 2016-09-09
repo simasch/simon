@@ -14,7 +14,7 @@ The configuration is done in a XML file. i.e.
 </hosts>
 ```
 
-The result is either JSON or XML when accessing (http://localhost:4567/check) or a simple web page on (http://localhost:4567/check)
+The result is either JSON or XML when accessing [http://localhost:4567/check](http://localhost:4567/check) or a simple web page on [http://localhost:4567/check](http://localhost:4567/check)
 
 To start it use
 

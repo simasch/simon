@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+
     <groupId>ch.simas</groupId>
     <artifactId>simon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     
+    <name>QLRM</name>
+    <description>simon - SImple MONitoring</description>
+    <url>https://github.com/simasch/simon</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>simasch</id>
+            <name>Simon Martineli</name>
+            <organization>simas GmbH</organization>
+            <organizationUrl>http://www.simas.ch</organizationUrl>
+            <email>sm@simas.ch</email>
+        </developer>
+    </developers>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.scm.id>github</project.scm.id>
     </properties>
     
     <dependencies>
@@ -73,4 +101,10 @@
             </plugin>           
         </plugins>
     </build>
+    
+    <scm>
+        <connection>scm:git:git@github.com:simasch/simon.git</connection>
+        <developerConnection>scm:git:git@github.com:simasch/simon.git</developerConnection>
+        <url>git@github.com:simasch/simon.git</url>        
+    </scm>
 </project>

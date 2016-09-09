@@ -15,6 +15,10 @@ The configuration is done in a XML file. i.e.
     </group>
 </hosts>
 ```
+## Download
+
+[http://repo1.maven.org/maven2/ch/simas/simon/1.0.0/simon-1.0.0.jar](http://repo1.maven.org/maven2/ch/simas/simon/1.0.0/simon-1.0.0.jar)
+
 ## Run
 
 To start it use

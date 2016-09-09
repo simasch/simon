@@ -10,10 +10,10 @@
 
     <groupId>ch.simas</groupId>
     <artifactId>simon</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     
-    <name>QLRM</name>
+    <name>simon</name>
     <description>simon - SImple MONitoring</description>
     <url>https://github.com/simasch/simon</url>
     <licenses>

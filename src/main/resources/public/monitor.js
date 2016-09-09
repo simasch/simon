@@ -8,24 +8,44 @@ function check() {
     xhr.onload = function () {
         var hosts = JSON.parse(xhr.responseText);
 
-        var html = '<h1>' + hosts.name + '</h1>';
+        var content = document.getElementById('content');
+        content.innerHTML = '';
+
+        var h1 = document.createElement('h1');
+        h1.innerHTML = hosts.name;
+        content.appendChild(h1);
+
         hosts.group.forEach(function (group) {
-            html += '<h2>' + group.name + '</h2>';
+            var h2 = document.createElement('h2');
+            h2.innerHTML = group.name;
+            content.appendChild(h2);
+
+            var i = 0;
+            var table = document.createElement('table');
             group.host.forEach(function (host) {
-                var color = host.status > 200 ? 'error' : 'success';
-                html += '<table><tr class="' + color + '">';
-                html += '<td width="200">' + host.name + '</td>';
-                html += '<td width="300">' + host.url + '</td>';
-                html += '<td width="100">' + host.status + '</td>';
-                html += '<td width="100" align="right">' + host.time + ' ms</td>';
-                html += '</tr></table>';
+                var row = table.insertRow(i);
+                row.className = host.status > 200 ? 'error' : 'success';
+                var cellName = row.insertCell(0);
+                cellName.width = 200;
+                cellName.innerHTML = host.name;
+                var cellUrl = row.insertCell(1);
+                cellUrl.width = 300;
+                cellUrl.innerHTML = host.url;
+                var cellStatus = row.insertCell(2);
+                cellStatus.width = 100;
+                cellStatus.innerHTML = host.status;
+                var cellTime = row.insertCell(3);
+                cellTime.width = 100;
+                cellTime.innerHTML = host.time;
+                i++;
             });
+            content.appendChild(table);
         });
-        html += "<br>";
+        content.appendChild(document.createElement('br'));
 
-        html += '<p>Last refresh: ' + formatTimestamp() + '</p>';
-
-        document.getElementById('content').innerHTML = html;
+        var pRefresh = document.createElement('p');
+        pRefresh.innerHTML = formatTimestamp();
+        content.appendChild(pRefresh);
     };
     xhr.send();
 }
@@ -51,7 +71,7 @@ function switchAutoRefresh() {
 function formatTimestamp() {
     var date = new Date();
     return pad(date.getDate()) + '.' + pad((date.getMonth() + 1)) + '.' + date.getFullYear() + ' '
-            + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds());
 }
 
 function pad(value) {

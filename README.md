@@ -1,7 +1,7 @@
 # simon - SImple MONItoring
 
 simon is a simple monitoring tool.
-All that it does is sending HTTP GET request to definied URLs and logging the status code and request time.
+All it does is sending HTTP GET request to definied URLs and logging the status code and request time.
 
 ## Configure
 

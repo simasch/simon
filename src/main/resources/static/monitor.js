@@ -33,10 +33,12 @@ function check() {
                 cellUrl.innerHTML = host.url;
                 var cellStatus = row.insertCell(2);
                 cellStatus.width = 100;
+                cellStatus.align = 'right';
                 cellStatus.innerHTML = host.status;
                 var cellTime = row.insertCell(3);
                 cellTime.width = 100;
-                cellTime.innerHTML = host.time;
+                cellTime.align = 'right';
+                cellTime.innerHTML = host.time + ' ms';
                 i++;
             });
             content.appendChild(table);
@@ -56,8 +58,9 @@ var autorefresh = false;
 function switchAutoRefresh() {
     autorefresh = !autorefresh;
 
-    var text = autorefresh ? 'Toggle auto refresh off' : 'Toggle auto refresh on';
-    document.getElementById('autorefresh').value = text;
+    var text = 'Toggle auto refresh';
+    text += autorefresh ? ' off' : ' on';
+    document.getElementById('autorefresh').innerHTML = text;
 
     if (autorefresh) {
         interval = setInterval(function () {

@@ -21,15 +21,22 @@ The configuration is done in a XML file. i.e.
 
 ## Run
 
-To start it use
+simon uses Spring Boot. To configure the runtime simple create a application.properties.
+The application.properties file must be in the same folder as the jar file.
+```
+server.port=7272
+simon.config.hosts=myhosts.xml
+```
+
+Then start it with
 
 ```
-java -jar simon-1.0.0.jar myhosts.xml
+java -jar simon-2.0.0.jar
 ```
 
 ## See
 
-The result is either JSON or XML depending on the content type when on [http://localhost:4567/check](http://localhost:4567/check) or a simple web page on [http://localhost:4567/check](http://localhost:4567/check)
+The result is either JSON or XML depending on the content type when on [http://localhost:7272/check](http://localhost:7272/check) or a simple web page on [http://localhost:4567/check](http://localhost:4567/check)
 
 # License
 

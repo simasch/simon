@@ -24,7 +24,7 @@ function check() {
             var table = document.createElement('table');
             group.host.forEach(function (host) {
                 var row = table.insertRow(i);
-                row.className = host.status > 200 ? 'error' : 'success';
+                row.className = isNaN(host.status) || host.status > 200 ? 'error' : 'success';
                 var cellName = row.insertCell(0);
                 cellName.width = 200;
                 cellName.innerHTML = host.name;

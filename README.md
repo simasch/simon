@@ -17,7 +17,7 @@ The configuration is done in a XML file. i.e.
 ```
 ## Download
 
-[http://repo1.maven.org/maven2/ch/simas/simon/1.0.0/simon-1.0.0.jar](http://repo1.maven.org/maven2/ch/simas/simon/1.0.0/simon-1.0.0.jar)
+[http://repo1.maven.org/maven2/ch/simas/monitor/simon/2.0.1/simon-2.0.1.jar](http://repo1.maven.org/maven2/ch/simas/monitor/simon/2.0.1/simon-2.0.1.jar)
 
 ## Run
 

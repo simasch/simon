@@ -8,13 +8,17 @@ import java.net.URL;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HostController {
 
+    private final static Logger LOGGER = Logger.getLogger(HostController.class);
+    
     private String config;
 
     public HostController(@Value("${simon.config.hosts}") String config) {
@@ -22,7 +26,10 @@ public class HostController {
     }
 
     @RequestMapping("/check")
+    @Scheduled(fixedRate = 5 * 60 * 1000)
     public Hosts check() {
+        LOGGER.debug("check");
+        
         try {
             Hosts hosts = loadConfiguration(config);
 

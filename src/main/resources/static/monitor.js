@@ -30,7 +30,13 @@ function check() {
                 cellName.innerHTML = host.name;
                 var cellUrl = row.insertCell(1);
                 cellUrl.width = 300;
-                cellUrl.innerHTML = host.url;
+                var hostLink = document.createElement('a');
+                hostLink.href = host.url;
+                hostLink.title = host.url;
+                hostLink.target = '_new';
+                var hostLinkText = document.createTextNode(host.url);
+                hostLink.appendChild(hostLinkText);
+                cellUrl.appendChild(hostLink);
                 var cellStatus = row.insertCell(2);
                 cellStatus.width = 100;
                 cellStatus.align = 'right';

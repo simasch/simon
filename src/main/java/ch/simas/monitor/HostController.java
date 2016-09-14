@@ -30,10 +30,15 @@ public class HostController {
                 for (Hosts.Group.Host host : group.getHost()) {
                     long start = System.currentTimeMillis();
                     URL obj = new URL(host.getUrl());
-                    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                    int responseCode = con.getResponseCode();
-                    host.setStatus("" + responseCode);
-                    host.setTime("" + (System.currentTimeMillis() - start));
+                    try {
+                        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                        int responseCode = con.getResponseCode();
+                        host.setStatus("" + responseCode);
+                        host.setTime("" + (System.currentTimeMillis() - start));
+                    } catch (Exception e) {
+                        host.setStatus(e.getLocalizedMessage());
+                        host.setTime("");
+                    }
                 }
             }
             return hosts;

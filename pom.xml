@@ -10,7 +10,7 @@
 
     <groupId>ch.simas.monitor</groupId>
     <artifactId>simon</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
     <packaging>jar</packaging>
     <name>simon</name>
     <description>SImple MONitoring</description>
@@ -152,7 +152,7 @@
         <connection>scm:git:git@github.com:simasch/simon.git</connection>
         <developerConnection>scm:git:git@github.com:simasch/simon.git</developerConnection>
         <url>git@github.com:simasch/simon.git</url>        
-        <tag>HEAD</tag>
+        <tag>simon-2.0.1</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>

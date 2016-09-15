@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>simon</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link href="../styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h1 th:text="${hosts.name}"></h1>
+
+        <table>
+            <tr th:each="group : ${hosts.group}">
+                <td>    
+                    <h2 th:text="${group.name}"></h2>
+
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>URL</th>
+                            <th>Status</th>
+                            <th>Duration</th>
+                            <th>Last check</th>
+                        </tr>
+                        <tr th:each="host : ${group.host}" th:class="${host.status.equals('200')? 'success' : 'error'}">
+                            <td width="200" th:text="${host.name}"></td>
+                            <td width="300" ><a th:href="${host.url}"><span th:text="${host.url}"></span></a></td>
+                            <td width="100" th:text="${host.status}"></td>
+                            <td width="100" th:text="${host.duration}"></td>
+                            <td width="200" th:text="${host.timestamp}"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </body>
+</html>

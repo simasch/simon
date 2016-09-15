@@ -5,6 +5,7 @@ window.onload = function () {
 function check() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", 'check', true);
+    xhr.setRequestHeader('Accept', 'application/json');
     xhr.onload = function () {
         var hosts = JSON.parse(xhr.responseText);
 

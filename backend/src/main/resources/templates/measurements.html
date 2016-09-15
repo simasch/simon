@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>simon</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link href="../styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h1 th:text="${measurements[0].name}"></h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Status</th>
+                <th>Duration</th>
+                <th>Last check</th>
+            </tr>
+            <tr th:each="measurement : ${measurements}" th:class="${measurement.status.equals('200')? 'success' : 'error'}">
+                <td width="200" th:text="${measurement.name}"></td>
+                <td width="300" ><a th:href="${measurement.url}"><span th:text="${measurement.url}"></span></a></td>
+                <td width="100" th:text="${measurement.status}"></td>
+                <td width="100" th:text="${measurement.duration}"></td>
+                <td width="200" th:text="${measurement.timestamp}"></td>
+            </tr>
+        </table>
+
+        <p><a href="/">Back</a></p>
+
+    </body>
+</html>

@@ -4,7 +4,7 @@ window.onload = function () {
 
 function check() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'latest', true);
+    xhr.open("GET", 'check/latest', true);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.onload = function () {
         var hosts = JSON.parse(xhr.responseText);
@@ -67,10 +67,7 @@ function check() {
                 cellDuration.width = 100;
                 cellDuration.align = 'right';
                 var aDuration = document.createElement('a');
-                aDuration.href = '#';
-                aDuration.onclick = function () {
-                    showMeasurements(host.url);
-                }
+                aDuration.href = 'measurements?url=' + host.url;
                 var aDurationText = document.createTextNode(host.duration + ' ms');
                 aDuration.appendChild(aDurationText);
                 cellDuration.appendChild(aDuration);
@@ -121,23 +118,4 @@ function pad(value) {
     } else {
         return value;
     }
-}
-
-function showMeasurements(url) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'measurements?url=' + url, true);
-    xhr.setRequestHeader('Accept', 'application/json');
-    xhr.onload = function () {
-        var measurements = JSON.parse(xhr.responseText);
-
-        var info = url + '\n';
-
-        measurements.forEach(function (m) {
-            var dateTime = formatTimestamp(new Date(m.timestamp));
-            info += dateTime + ': ' + m.status + ' ' + m.duration + ' ms\n';
-        });
-
-        alert(info);
-    };
-    xhr.send();
 }

@@ -1,11 +1,13 @@
 package ch.simas.monitor.boundry;
 
 import ch.simas.monitor.control.MeasurementService;
+import ch.simas.monitor.entity.Measurement;
 import ch.simas.monitor.xml.Hosts;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -21,6 +23,8 @@ public class CheckController {
 
     private final static Logger LOGGER = Logger.getLogger(CheckController.class);
 
+    private final static SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+
     private final String config;
 
     @Autowired
@@ -30,9 +34,26 @@ public class CheckController {
         this.config = config;
     }
 
+    @RequestMapping("/latest")
+    public Hosts showLastResult() {
+        Hosts hosts = loadConfiguration(config);
+
+        for (Hosts.Group group : hosts.getGroup()) {
+            for (Hosts.Group.Host host : group.getHost()) {
+                Measurement measurement = measurementService.getLatest(host.getUrl());
+                if (measurement != null) {
+                    host.setStatus(measurement.getStatus());
+                    host.setDuration(measurement.getDuration());
+                    host.setTimestamp(SDF.format(measurement.getTimestamp()));
+                }
+            }
+        }
+        return hosts;
+    }
+
     @RequestMapping("/check")
     @Scheduled(fixedRate = 5 * 60 * 1000)
-    public Hosts check() {
+    public void check() {
         try {
             Hosts hosts = loadConfiguration(config);
 
@@ -44,15 +65,13 @@ public class CheckController {
                         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                         int responseCode = con.getResponseCode();
                         host.setStatus("" + responseCode);
-                        host.setTime(System.currentTimeMillis() - start);
+                        host.setDuration(System.currentTimeMillis() - start);
                     } catch (Exception e) {
                         host.setStatus(e.getLocalizedMessage());
-                        host.setTime(null);
                     }
-                    measurementService.createMeasurement(host.getName(), host.getUrl(), host.getStatus(), host.getTime());
+                    measurementService.createMeasurement(host.getName(), host.getUrl(), host.getStatus(), host.getDuration());
                 }
             }
-            return hosts;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

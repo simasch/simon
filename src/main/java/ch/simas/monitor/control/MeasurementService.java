@@ -38,9 +38,18 @@ public class MeasurementService {
         return q.getResultList();
     }
 
-    public List<Measurement> getLatest() {
-        TypedQuery<Measurement> q = em.createQuery("select m from Measurement m where m.timestamp = (select max(ms.timestamp) from Measurement ms where ms.id = m.id)", Measurement.class);
-        return q.getResultList();
+    public Measurement getLatest(String url) {
+        TypedQuery<Measurement> q = em.createQuery("select m from Measurement m "
+                + "where m.timestamp = (select max(ms.timestamp) from Measurement ms where ms.id = m.id) "
+                + "and m.url = :url", Measurement.class);
+        q.setParameter("url", url);
+
+        List<Measurement> list = q.getResultList();
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0);
+        }
     }
 
 }

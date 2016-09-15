@@ -12,3 +12,7 @@ body {
 .success {
     background-color: lightgreen;
 }
+
+.header {
+    font-weight: bold;
+}

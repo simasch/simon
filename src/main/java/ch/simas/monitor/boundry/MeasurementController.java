@@ -14,11 +14,6 @@ public class MeasurementController {
     @Autowired
     private MeasurementService measurementService;
 
-    @RequestMapping("/measurements/latest")
-    public List<Measurement> getLatest() {
-            return measurementService.getLatest();
-    }
-
     @RequestMapping("/measurements")
     public List<Measurement> get(@RequestParam(value = "url") String url) {
         if (url != null) {

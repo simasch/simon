@@ -1,10 +1,10 @@
 window.onload = function () {
     check();
-}
+};
 
 function check() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'check', true);
+    xhr.open("GET", 'latest', true);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.onload = function () {
         var hosts = JSON.parse(xhr.responseText);
@@ -21,8 +21,25 @@ function check() {
             h2.innerHTML = group.name;
             content.appendChild(h2);
 
-            var i = 0;
             var table = document.createElement('table');
+            var header = table.createTHead();
+            var hRow = header.insertRow(0);
+            hRow.className = 'header';
+            var hCellName = hRow.insertCell(0);
+            hCellName.innerHTML = 'Name';
+            var hCellUrl = hRow.insertCell(1);
+            hCellUrl.innerHTML = 'URL';
+            var hCellStatus = hRow.insertCell(2);
+            hCellStatus.align = 'right';
+            hCellStatus.innerHTML = 'Status';
+            var hCellDuration = hRow.insertCell(3);
+            hCellDuration.align = 'right';
+            hCellDuration.innerHTML = 'Duration';
+            var hCellTimestamp = hRow.insertCell(4);
+            hCellTimestamp.align = 'right';
+            hCellTimestamp.innerHTML = 'Last check';
+
+            var i = 1;
             group.host.forEach(function (host) {
                 var row = table.insertRow(i);
                 row.className = isNaN(host.status) || host.status > 200 ? 'error' : 'success';
@@ -46,17 +63,22 @@ function check() {
                 cellStatus.align = 'right';
                 cellStatus.innerHTML = host.status;
 
-                var cellTime = row.insertCell(3);
-                cellTime.width = 100;
-                cellTime.align = 'right';
-                var aTime = document.createElement('a');
-                aTime.href = '#';
-                aTime.onclick = function () {
+                var cellDuration = row.insertCell(3);
+                cellDuration.width = 100;
+                cellDuration.align = 'right';
+                var aDuration = document.createElement('a');
+                aDuration.href = '#';
+                aDuration.onclick = function () {
                     showMeasurements(host.url);
                 }
-                var aTimeText = document.createTextNode(host.time + ' ms');
-                aTime.appendChild(aTimeText);
-                cellTime.appendChild(aTime);
+                var aDurationText = document.createTextNode(host.duration + ' ms');
+                aDuration.appendChild(aDurationText);
+                cellDuration.appendChild(aDuration);
+
+                var cellTimestamp = row.insertCell(4);
+                cellTimestamp.width = 200;
+                cellTimestamp.align = 'right';
+                cellTimestamp.innerHTML = host.timestamp;
 
                 i++;
             });
@@ -64,9 +86,7 @@ function check() {
         });
         content.appendChild(document.createElement('br'));
 
-        var pRefresh = document.createElement('p');
-        pRefresh.innerHTML = formatTimestamp();
-        content.appendChild(pRefresh);
+        document.getElementById('lastrefresh').innerHTML = 'Last refresh: ' + formatTimestamp(new Date());
     };
     xhr.send();
 }
@@ -77,7 +97,7 @@ var autorefresh = false;
 function switchAutoRefresh() {
     autorefresh = !autorefresh;
 
-    var text = 'Toggle auto refresh';
+    var text = 'Turn auto refresh';
     text += autorefresh ? ' off' : ' on';
     document.getElementById('autorefresh').innerHTML = text;
 
@@ -90,8 +110,7 @@ function switchAutoRefresh() {
     }
 }
 
-function formatTimestamp() {
-    var date = new Date();
+function formatTimestamp(date) {
     return pad(date.getDate()) + '.' + pad((date.getMonth() + 1)) + '.' + date.getFullYear() + ' '
             + pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds());
 }
@@ -110,6 +129,15 @@ function showMeasurements(url) {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.onload = function () {
         var measurements = JSON.parse(xhr.responseText);
-    }
+
+        var info = url + '\n';
+
+        measurements.forEach(function (m) {
+            var dateTime = formatTimestamp(new Date(m.timestamp));
+            info += dateTime + ': ' + m.status + ' ' + m.duration + ' ms\n';
+        });
+
+        alert(info);
+    };
     xhr.send();
 }

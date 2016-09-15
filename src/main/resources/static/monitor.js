@@ -26,26 +26,38 @@ function check() {
             group.host.forEach(function (host) {
                 var row = table.insertRow(i);
                 row.className = isNaN(host.status) || host.status > 200 ? 'error' : 'success';
+
                 var cellName = row.insertCell(0);
                 cellName.width = 200;
                 cellName.innerHTML = host.name;
+
                 var cellUrl = row.insertCell(1);
                 cellUrl.width = 300;
-                var hostLink = document.createElement('a');
-                hostLink.href = host.url;
-                hostLink.title = host.url;
-                hostLink.target = '_new';
-                var hostLinkText = document.createTextNode(host.url);
-                hostLink.appendChild(hostLinkText);
-                cellUrl.appendChild(hostLink);
+                var aUrl = document.createElement('a');
+                aUrl.href = host.url;
+                aUrl.title = host.url;
+                aUrl.target = '_new';
+                var aUrlText = document.createTextNode(host.url);
+                aUrl.appendChild(aUrlText);
+                cellUrl.appendChild(aUrl);
+
                 var cellStatus = row.insertCell(2);
                 cellStatus.width = 100;
                 cellStatus.align = 'right';
                 cellStatus.innerHTML = host.status;
+
                 var cellTime = row.insertCell(3);
                 cellTime.width = 100;
                 cellTime.align = 'right';
-                cellTime.innerHTML = host.time + ' ms';
+                var aTime = document.createElement('a');
+                aTime.href = '#';
+                aTime.onclick = function () {
+                    showMeasurements(host.url);
+                }
+                var aTimeText = document.createTextNode(host.time + ' ms');
+                aTime.appendChild(aTimeText);
+                cellTime.appendChild(aTime);
+
                 i++;
             });
             content.appendChild(table);
@@ -90,4 +102,14 @@ function pad(value) {
     } else {
         return value;
     }
+}
+
+function showMeasurements(url) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", 'measurements?url=' + url, true);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.onload = function () {
+        var measurements = JSON.parse(xhr.responseText);
+    }
+    xhr.send();
 }

@@ -19,3 +19,5 @@ hs_err_pid*
 /src/main/resources/static/angular/app/main.js
 /src/main/resources/static/angular/app/main.js.map
 /src/main/resources/static/angular/typings
+/derby.log
+/simondb

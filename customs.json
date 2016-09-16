@@ -13,6 +13,9 @@
         "v-cloak": {
             "context": "div"
         },
+        "aria-expanded": {
+            "context": "button"
+        },
         "v-class": {
             "context": "div"
         }

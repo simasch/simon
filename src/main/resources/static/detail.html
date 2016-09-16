@@ -15,6 +15,27 @@
         </style>
     </head>
     <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">SImpleMONitor</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/simasch/simon">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <div id="content" v-cloak>
             <div class="container" v-if="dataReady">
                 <h1>{{measurements[0].name}} - {{measurements[0].url}}</h1>
@@ -22,10 +43,16 @@
 
             <div class="container">
                 <canvas id="chart"></canvas>
-                
-                <a href="/">Back</a>
+
+                <p style="padding-top: 20px;"><a href="/">Back</a></p>
             </div>
         </div>
+
+        <footer class="footer navbar-fixed-bottom">
+            <div class="container">
+                <p class="text-muted">SImpleMONitor is free and open source under Apache license 2.0</p>
+            </div>
+        </footer>
 
         <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

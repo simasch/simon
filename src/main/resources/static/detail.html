@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>SImpleMonitor</title>
+        <title>SImpleMONitor</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,26 +17,13 @@
     <body>
         <div id="content" v-cloak>
             <div class="container" v-if="dataReady">
-
                 <h1>{{measurements[0].name}} - {{measurements[0].url}}</h1>
+            </div>
 
-                <table class="table">
-                    <tr>
-                        <th>Timestamp</th>
-                        <th>Status</th>
-                        <th>Duration</th>
-                    </tr>
-                    <tr v-for="m in measurements" class="{{m.status == '200' ? 'success' : 'error'}}">
-                        <td width="200">{{m.formattedTimestamp}}</td>
-                        <td width="100">{{m.status}}</td>
-                        <td width="100">{{m.duration}} ms</td>
-                    </tr>
-                </table>
-
-                <p style="padding-top: 20px;">
-                    <a href="/">Back</a>
-                </p>
-
+            <div class="container">
+                <canvas id="chart"></canvas>
+                
+                <a href="/">Back</a>
             </div>
         </div>
 
@@ -44,6 +31,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
         <script src="https://cdn.jsdelivr.net/vue.resource/1.0.2/vue-resource.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
         <script src="js/detail.js"></script>
     </body>
 </html>

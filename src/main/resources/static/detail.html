@@ -5,16 +5,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="styles.css" rel="stylesheet">
-        <script src="vue.js"></script>
-        <script src="detail.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
     </head>
     <body>
-        <div id="content">
+        <div id="content" class="container">
 
             <h1>{{measurements[0].name}} - {{measurements[0].url}}</h1>
 
-            <table>
+            <table class="table">
                 <tr>
                     <th>Timestamp</th>
                     <th>Status</th>
@@ -33,5 +31,9 @@
 
         </div>
 
+        <script src="js/jquery-3.1.0.min.js"></script>        
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vue.js"></script>
+        <script src="js/detail.js"></script>
     </body>
 </html>

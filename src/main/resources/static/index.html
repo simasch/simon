@@ -5,17 +5,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="styles.css" rel="stylesheet">
-        <script src="vue.js"></script>
-        <script src="index.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
     </head>
     <body>
-        <div id="content">
+        <div id="content" class="container">
             <h1>{{host.name}}</h1>
             <div v-for="group in host.group">
                 <h2>{{group.name}}</h2>
 
-                <table>
+                <table class="table">
                     <tr>
                         <th>Name</th>
                         <th>URL</th>
@@ -23,7 +21,7 @@
                         <th>Duration</th>
                         <th>Timestamp</th>
                     </tr>
-                    <tr v-for="host in group.host" class="{{host.status == '200' ? 'success' : 'error'}}">
+                    <tr v-for="host in group.host" class="{{host.status == '200' ? 'success' : 'danger'}}">
                         <td width="200">{{host.name}}</td>
                         <td width="300"><a href="{{host.url}}">{{host.url}}</a></td>
                         <td width="100">{{host.status}}</td>
@@ -32,13 +30,18 @@
                     </tr>
                 </table>
             </div>
+
+            <p style="padding-top: 20px;">
+                <span id="lastrefresh"></span>
+                &nbsp;/&nbsp;
+                <a id="autorefresh" href="#" onclick="switchAutoRefresh()">Turn auto refresh on</a>
+            </p>
         </div>
 
-        <p style="padding-top: 20px;">
-            <span id="lastrefresh"></span>
-            &nbsp;/&nbsp;
-            <a id="autorefresh" href="#" onclick="switchAutoRefresh()">Turn auto refresh on</a>
-        </p>
+        <script src="js/jquery-3.1.0.min.js"></script>        
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vue.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>
 

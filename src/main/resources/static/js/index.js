@@ -1,43 +1,43 @@
-window.onload = function () {
-    check();
-};
+(function (exports) {
+    exports.app = new Vue({
+        el: '#content',
+        data: {
+            hosts: null,
+            dataReady: false,
+            interval: null,
+            autoRefresh: false,
+            lastRefresh: null
+        },
+        ready: function () {
+            this.fetchData();
+        },
+        methods: {
+            fetchData: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", 'check/latest', true);
+                xhr.setRequestHeader('Accept', 'application/json');
+                var vm = this;
+                xhr.onload = function () {
+                    vm.hosts = JSON.parse(xhr.responseText);
+                    vm.lastRefresh = formatTimestamp(new Date());
+                    vm.dataReady = true;
+                };
+                xhr.send();
+            },
+            switchAutoRefresh: function () {
+                this.autorefresh = !this.autorefresh;
 
-function check() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'check/latest', true);
-    xhr.setRequestHeader('Accept', 'application/json');
-    xhr.onload = function () {
-
-        new Vue({
-            el: '#content',
-            data: {
-                hosts: JSON.parse(xhr.responseText)
+                if (autorefresh) {
+                    this.interval = setInterval(function () {
+                        this.fetchData();
+                    }, 10000);
+                } else {
+                    clearInterval(interval);
+                }
             }
-        });
-        
-        document.getElementById('lastrefresh').innerHTML = 'Last refresh: ' + formatTimestamp(new Date());
-    };
-    xhr.send();
-}
-
-var interval;
-var autorefresh = false;
-
-function switchAutoRefresh() {
-    autorefresh = !autorefresh;
-
-    var text = 'Turn auto refresh';
-    text += autorefresh ? ' off' : ' on';
-    document.getElementById('autorefresh').innerHTML = text;
-
-    if (autorefresh) {
-        interval = setInterval(function () {
-            check();
-        }, 10000);
-    } else {
-        clearInterval(interval);
-    }
-}
+        }
+    });
+})(window);
 
 function formatTimestamp(date) {
     return pad(date.getDate()) + '.' + pad((date.getMonth() + 1)) + '.' + date.getFullYear() + ' '
@@ -51,4 +51,3 @@ function pad(value) {
         return value;
     }
 }
-

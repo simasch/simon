@@ -1,6 +1,12 @@
 {
     "elements": {},
     "attributes": {
+        "v-if": {
+            "context": "div"
+        },
+        "v-on:click": {
+            "context": "a"
+        },
         "v-for": {
             "context": "div"
         },

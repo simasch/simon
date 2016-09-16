@@ -10,6 +10,7 @@
     <body>
         <div id="content" class="container">
             <h1>{{hosts.name}}</h1>
+            <p>Last refresh {{lastRefresh}} &nbsp;/&nbsp; <a href="#" v-on:click="switchAutoRefresh">Turn auto refresh {{autoRefresh == true ? 'on' : 'off'}}</a></p>
 
             <div v-for="group in hosts.group">
                 <h2>{{group.name}}</h2>
@@ -31,13 +32,8 @@
                     </tr>
                 </table>
             </div>
-
-            <p style="padding-top: 20px;">
-                <span id="lastrefresh"></span>
-                &nbsp;/&nbsp;
-                <a id="autorefresh" href="#" onclick="switchAutoRefresh()">Turn auto refresh on</a>
-            </p>
         </div>
+
         <script src="js/jquery-3.1.0.min.js"></script>        
         <script src="js/bootstrap.min.js"></script>
         <script src="js/vue.js"></script>

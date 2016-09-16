@@ -50,7 +50,7 @@ public class CheckController {
     }
 
     @RequestMapping
-    @Scheduled(fixedRate = 5 * 60 * 1000)
+    @Scheduled(cron="0 */10 * * * ?")
     public void check() {
         try {
             Hosts hosts = loadConfiguration(config);

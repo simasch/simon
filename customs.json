@@ -3,6 +3,9 @@
     "attributes": {
         "v-for": {
             "context": "div"
+        },
+        "v-class": {
+            "context": "div"
         }
     }
 }

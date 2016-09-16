@@ -33,13 +33,17 @@ public class MeasurementService {
     }
 
     public List<Measurement> findByUrl(String url) {
-        TypedQuery<Measurement> q = em.createQuery("select m from Measurement m where m.url = :url", Measurement.class);
+        TypedQuery<Measurement> q = em.createQuery(
+                "select m from Measurement m where m.url = :url order by m.timestamp desc",
+                Measurement.class);
         q.setParameter("url", url);
+        q.setMaxResults(20);
         return q.getResultList();
     }
 
     public Measurement getLatest(String url) {
-        TypedQuery<Measurement> q = em.createQuery("select m from Measurement m "
+        TypedQuery<Measurement> q = em.createQuery(
+                "select m from Measurement m "
                 + "where m.timestamp = (select max(ms.timestamp) from Measurement ms where ms.id = m.id) "
                 + "and m.url = :url", Measurement.class);
         q.setParameter("url", url);

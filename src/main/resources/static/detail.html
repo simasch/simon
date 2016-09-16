@@ -21,7 +21,7 @@
                 <tr v-for="m in measurements" class="{{m.status == '200' ? 'success' : 'error'}}">
                     <td width="200">{{m.formattedTimestamp}}</td>
                     <td width="100">{{m.status}}</td>
-                    <td width="100">{{m.duration}}</td>
+                    <td width="100">{{m.duration}} ms</td>
                 </tr>
             </table>
 

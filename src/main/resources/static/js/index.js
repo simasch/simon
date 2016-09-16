@@ -11,7 +11,7 @@ function check() {
         new Vue({
             el: '#content',
             data: {
-                host: JSON.parse(xhr.responseText)
+                hosts: JSON.parse(xhr.responseText)
             }
         });
         

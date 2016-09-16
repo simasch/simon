@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -36,16 +37,16 @@ public class CheckController {
     public Hosts getLatest() {
         Hosts hosts = loadConfiguration(config);
 
-        for (Hosts.Group group : hosts.getGroup()) {
-            for (Hosts.Group.Host host : group.getHost()) {
+        hosts.getGroup().stream().forEach((group) -> {
+            group.getHost().stream().forEach((host) -> {
                 Measurement measurement = measurementService.getLatest(host.getUrl());
                 if (measurement != null) {
                     host.setStatus(measurement.getStatus());
                     host.setDuration(measurement.getDuration());
                     host.setTimestamp(SDF.format(measurement.getTimestamp()));
                 }
-            }
-        }
+            });
+        });
         return hosts;
     }
 

@@ -9,8 +9,9 @@
     </head>
     <body>
         <div id="content" class="container">
-            <h1>{{host.name}}</h1>
-            <div v-for="group in host.group">
+            <h1>{{hosts.name}}</h1>
+
+            <div v-for="group in hosts.group">
                 <h2>{{group.name}}</h2>
 
                 <table class="table">
@@ -37,7 +38,6 @@
                 <a id="autorefresh" href="#" onclick="switchAutoRefresh()">Turn auto refresh on</a>
             </p>
         </div>
-
         <script src="js/jquery-3.1.0.min.js"></script>        
         <script src="js/bootstrap.min.js"></script>
         <script src="js/vue.js"></script>

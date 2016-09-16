@@ -6,15 +6,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link href="styles.css" rel="stylesheet">
-        <script src="monitor.js"></script>
+        <script src="vue.js"></script>
+        <script src="index.js"></script>
     </head>
     <body>
-        <div id="content">Loading...</div>
+        <div id="content">
+            <h1>{{host.name}}</h1>
+            <div v-for="group in host.group">
+                <h2>{{group.name}}</h2>
 
-        <p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>URL</th>
+                        <th>Status</th>
+                        <th>Duration</th>
+                        <th>Timestamp</th>
+                    </tr>
+                    <tr v-for="host in group.host" class="{{host.status == '200' ? 'success' : 'error'}}">
+                        <td width="200">{{host.name}}</td>
+                        <td width="300"><a href="{{host.url}}">{{host.url}}</a></td>
+                        <td width="100">{{host.status}}</td>
+                        <td width="100"><a href="detail.html?url={{host.url}}">{{host.duration}}</a></td>
+                        <td width="200">{{host.timestamp}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <p style="padding-top: 20px;">
             <span id="lastrefresh"></span>
             &nbsp;/&nbsp;
             <a id="autorefresh" href="#" onclick="switchAutoRefresh()">Turn auto refresh on</a>
         </p>
     </body>
 </html>
+

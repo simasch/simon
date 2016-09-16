@@ -4,22 +4,22 @@ import ch.simas.monitor.control.MeasurementService;
 import ch.simas.monitor.entity.Measurement;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class MeasurementController {
 
     @Autowired
     private MeasurementService measurementService;
 
     @RequestMapping("/measurements")
-    public ModelAndView latestResults(@RequestParam(value = "url", required = true) String url)  {
-        List<Measurement> measurements = measurementService.findByUrl(url);
-
-        return new ModelAndView("measurements", "measurements", measurements);
+    public List<Measurement> latestResults(@RequestParam(value = "url", required = false) String url) {
+        if (url == null) {
+            return measurementService.findAll();
+        } else {
+            return measurementService.findByUrl(url);
+        }
     }
-
 }

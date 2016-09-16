@@ -2,6 +2,7 @@ package ch.simas.monitor.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 @Entity
 public class Measurement implements Serializable {
 
+    private final static SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    
     @Id
     @GeneratedValue
     private Integer id;
@@ -66,4 +69,7 @@ public class Measurement implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public String getFormattedTimestamp() {
+        return SDF.format(timestamp);
+    }
 }

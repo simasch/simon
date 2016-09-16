@@ -10,15 +10,13 @@
         },
         methods: {
             fetchData: function () {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", 'measurements' + location.search, true);
-                xhr.setRequestHeader('Accept', 'application/json');
                 var vm = this;
-                xhr.onload = function () {
-                    vm.measurements = JSON.parse(xhr.responseText);
+                this.$http.get('measurements' + location.search).then(function (response) {
+                    vm.measurements = response.body;
                     vm.dataReady = true;
-                };
-                xhr.send();
+                }, function (response) {
+                    console.log(response.status);
+                });
             }
         }
     });

@@ -13,23 +13,22 @@
         },
         methods: {
             fetchData: function () {
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", 'check/latest', true);
-                xhr.setRequestHeader('Accept', 'application/json');
                 var vm = this;
-                xhr.onload = function () {
-                    vm.hosts = JSON.parse(xhr.responseText);
+                this.$http.get('check/latest').then(function (response) {
+                    vm.hosts = response.body;
                     vm.lastRefresh = formatTimestamp(new Date());
                     vm.dataReady = true;
-                };
-                xhr.send();
+                }, function (response) {
+                    console.log(response.status);
+                });
             },
             switchAutoRefresh: function () {
                 this.autoRefresh = !this.autoRefresh;
 
-                if (autorefresh) {
+                if (this.autoRefresh) {
+                    var vm = this;
                     this.interval = setInterval(function () {
-                        this.fetchData();
+                        vm.fetchData();
                     }, 10000);
                 } else {
                     clearInterval(interval);

@@ -20,7 +20,7 @@
 
                 <h1>{{hosts.name}}</h1>
 
-                <p>Last refresh {{lastRefresh}} &nbsp;/&nbsp; <a href="#" v-on:click="switchAutoRefresh">Turn auto refresh {{autoRefresh == true ? 'on' : 'off'}}</a></p>
+                <p>Last refresh {{lastRefresh}} &nbsp;/&nbsp; <a href="#" v-on:click="switchAutoRefresh">Turn auto refresh {{autoRefresh == true ? 'off' : 'on'}}</a></p>
 
                 <div v-for="group in hosts.group">
                     <h2>{{group.name}}</h2>

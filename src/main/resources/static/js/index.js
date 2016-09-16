@@ -25,7 +25,7 @@
                 xhr.send();
             },
             switchAutoRefresh: function () {
-                this.autorefresh = !this.autorefresh;
+                this.autoRefresh = !this.autoRefresh;
 
                 if (autorefresh) {
                     this.interval = setInterval(function () {

@@ -6,29 +6,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+
+        <style type="text/css">
+            [v-cloak] {
+                display: none;
+            }
+        </style>
     </head>
     <body>
-        <div id="content" class="container">
+        <div id="content" v-cloak>
+            <div class="container" v-if="dataReady">
 
-            <h1>{{measurements[0].name}} - {{measurements[0].url}}</h1>
+                <h1>{{measurements[0].name}} - {{measurements[0].url}}</h1>
 
-            <table class="table">
-                <tr>
-                    <th>Timestamp</th>
-                    <th>Status</th>
-                    <th>Duration</th>
-                </tr>
-                <tr v-for="m in measurements" class="{{m.status == '200' ? 'success' : 'error'}}">
-                    <td width="200">{{m.formattedTimestamp}}</td>
-                    <td width="100">{{m.status}}</td>
-                    <td width="100">{{m.duration}} ms</td>
-                </tr>
-            </table>
+                <table class="table">
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Status</th>
+                        <th>Duration</th>
+                    </tr>
+                    <tr v-for="m in measurements" class="{{m.status == '200' ? 'success' : 'error'}}">
+                        <td width="200">{{m.formattedTimestamp}}</td>
+                        <td width="100">{{m.status}}</td>
+                        <td width="100">{{m.duration}} ms</td>
+                    </tr>
+                </table>
 
-            <p style="padding-top: 20px;">
-                <a href="/">Back</a>
-            </p>
+                <p style="padding-top: 20px;">
+                    <a href="/">Back</a>
+                </p>
 
+            </div>
         </div>
 
         <script src="js/jquery-3.1.0.min.js"></script>        

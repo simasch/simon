@@ -6,31 +6,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+
+        <style type="text/css">
+            [v-cloak] {
+                display: none;
+            }
+        </style>
     </head>
     <body>
-        <div id="content" class="container">
-            <h1>{{hosts.name}}</h1>
-            <p>Last refresh {{lastRefresh}} &nbsp;/&nbsp; <a href="#" v-on:click="switchAutoRefresh">Turn auto refresh {{autoRefresh == true ? 'on' : 'off'}}</a></p>
+        <div id="content" v-cloak>
+            <div class="container" v-if="dataReady">
 
-            <div v-for="group in hosts.group">
-                <h2>{{group.name}}</h2>
+                <h1>{{hosts.name}}</h1>
 
-                <table class="table">
-                    <tr>
-                        <th>Name</th>
-                        <th>URL</th>
-                        <th>Status</th>
-                        <th>Duration</th>
-                        <th>Timestamp</th>
-                    </tr>
-                    <tr v-for="host in group.host" class="{{host.status == '200' ? 'success' : 'danger'}}">
-                        <td width="200">{{host.name}}</td>
-                        <td width="300"><a href="{{host.url}}">{{host.url}}</a></td>
-                        <td width="100">{{host.status}}</td>
-                        <td width="100"><a href="detail.html?url={{host.url}}">{{host.duration}} ms</a></td>
-                        <td width="200">{{host.timestamp}}</td>
-                    </tr>
-                </table>
+                <p>Last refresh {{lastRefresh}} &nbsp;/&nbsp; <a href="#" v-on:click="switchAutoRefresh">Turn auto refresh {{autoRefresh == true ? 'on' : 'off'}}</a></p>
+
+                <div v-for="group in hosts.group">
+                    <h2>{{group.name}}</h2>
+
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>URL</th>
+                            <th>Status</th>
+                            <th>Duration</th>
+                            <th>Timestamp</th>
+                        </tr>
+                        <tr v-for="host in group.host" class="{{host.status == '200' ? 'success' : 'danger'}}">
+                            <td width="200">{{host.name}}</td>
+                            <td width="300"><a href="{{host.url}}">{{host.url}}</a></td>
+                            <td width="100">{{host.status}}</td>
+                            <td width="100"><a href="detail.html?url={{host.url}}">{{host.duration}} ms</a></td>
+                            <td width="200">{{host.timestamp}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
 

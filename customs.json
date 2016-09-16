@@ -10,6 +10,9 @@
         "v-for": {
             "context": "div"
         },
+        "v-cloak": {
+            "context": "div"
+        },
         "v-class": {
             "context": "div"
         }

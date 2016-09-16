@@ -74,6 +74,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
+                    <!--
+                    <executable>true</executable>
+                    -->
                 </configuration>
             </plugin>
             <plugin>

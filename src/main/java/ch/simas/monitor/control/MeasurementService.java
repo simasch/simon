@@ -34,7 +34,7 @@ public class MeasurementService {
 
     public List<Measurement> findByUrl(String url) {
         TypedQuery<Measurement> q = em.createQuery(
-                "select m from Measurement m where m.url = :url order by m.timestamp desc",
+                "select m from Measurement m where m.url = :url order by m.timestamp asc",
                 Measurement.class);
         q.setParameter("url", url);
         q.setMaxResults(20);

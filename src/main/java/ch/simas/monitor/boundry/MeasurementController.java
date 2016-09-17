@@ -2,6 +2,8 @@ package ch.simas.monitor.boundry;
 
 import ch.simas.monitor.control.MeasurementService;
 import ch.simas.monitor.entity.Measurement;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,9 @@ public class MeasurementController {
         if (url == null) {
             return measurementService.findAll();
         } else {
-            return measurementService.findByUrl(url);
+            List<Measurement> measurements = measurementService.findByUrl(url, 20);
+            Collections.sort(measurements, (Measurement o1, Measurement o2) -> o1.getTimestamp().compareTo(o2.getTimestamp()));
+            return measurements;
         }
     }
 }

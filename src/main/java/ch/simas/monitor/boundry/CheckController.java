@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -38,8 +39,9 @@ public class CheckController {
 
         hosts.getGroup().stream().forEach((group) -> {
             group.getHost().stream().forEach((host) -> {
-                Measurement measurement = measurementService.getLatest(host.getUrl());
-                if (measurement != null) {
+                List<Measurement> measurements = measurementService.findByUrl(host.getUrl(), 1);
+                if (!measurements.isEmpty()) {
+                    Measurement measurement = measurements.get(0);
                     host.setStatus(measurement.getStatus());
                     host.setDuration(measurement.getDuration());
                     host.setTimestamp(SDF.format(measurement.getTimestamp()));
@@ -50,7 +52,7 @@ public class CheckController {
     }
 
     @RequestMapping
-    @Scheduled(cron="0 */10 * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     public void check() {
         try {
             Hosts hosts = loadConfiguration(config);

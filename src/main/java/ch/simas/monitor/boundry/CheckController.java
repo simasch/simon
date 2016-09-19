@@ -39,7 +39,7 @@ public class CheckController {
 
         hosts.getGroup().stream().forEach((group) -> {
             group.getHost().stream().forEach((host) -> {
-                List<Measurement> measurements = measurementService.findByUrl(host.getUrl(), 1);
+                List<Measurement> measurements = measurementService.find(host.getUrl(), 1, null, null);
                 if (!measurements.isEmpty()) {
                     Measurement measurement = measurements.get(0);
                     host.setStatus(measurement.getStatus());

@@ -1,8 +1,7 @@
 package ch.simas.monitor.control;
 
 import ch.simas.monitor.entity.Measurement;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +22,7 @@ public class MeasurementService {
         measurement.setUrl(url);
         measurement.setStatus(status);
         measurement.setDuration(time);
-        measurement.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        measurement.setTimestamp(LocalDateTime.now());
 
         em.persist(measurement);
     }
@@ -33,13 +32,13 @@ public class MeasurementService {
         return q.getResultList();
     }
 
-    public List<Measurement> find(String url, Integer maxResults, Date dateFrom, Date dateTo) {
+    public List<Measurement> find(String url, Integer maxResults, LocalDateTime dateFrom, LocalDateTime dateTo) {
         String queryString = "select m from Measurement m where m.url = :url ";
         if (dateFrom != null) {
-            queryString += " m.timestamp >= :dateFrom";
+            queryString += " and m.timestamp >= :dateFrom";
         }
         if (dateTo != null) {
-            queryString += " m.timestamp <= :dateTo";
+            queryString += " and m.timestamp <= :dateTo";
         }
         queryString += " order by m.timestamp desc";
         TypedQuery<Measurement> q = em.createQuery(queryString, Measurement.class);

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/check")
 public class CheckController {
 
-    private final static SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     private final String config;
 
@@ -44,7 +45,7 @@ public class CheckController {
                     Measurement measurement = measurements.get(0);
                     host.setStatus(measurement.getStatus());
                     host.setDuration(measurement.getDuration());
-                    host.setTimestamp(SDF.format(measurement.getTimestamp()));
+                    host.setTimestamp(measurement.getTimestamp().format(DTF));
                 }
             });
         });

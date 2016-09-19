@@ -1,8 +1,9 @@
 package ch.simas.monitor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class Measurement implements Serializable {
 
-    private final static SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
     
     @Id
     @GeneratedValue
@@ -19,7 +20,7 @@ public class Measurement implements Serializable {
     private String url;
     private String status;
     private Long duration;
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 
     public Integer getId() {
         return id;
@@ -61,15 +62,20 @@ public class Measurement implements Serializable {
         this.duration = duration;
     }
 
-    public Timestamp getTimestamp() {
+    @JsonIgnore
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
     public String getFormattedTimestamp() {
-        return SDF.format(timestamp);
+        return DTF.format(timestamp);
+    }
+
+    public String getIsoTimestamp() {
+        return DateTimeFormatter.ISO_DATE_TIME.format(timestamp);
     }
 }

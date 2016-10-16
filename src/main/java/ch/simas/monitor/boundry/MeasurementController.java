@@ -5,7 +5,6 @@ import ch.simas.monitor.entity.Measurement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MeasurementController {
 
-    private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     @Autowired
     private MeasurementService measurementService;
 
     @RequestMapping("/measurements")
-    public List<Measurement> getMeasurements2(
+    public List<Measurement> getMeasurements(
             @RequestParam(value = "url", required = true) String url,
             @RequestParam(value = "maxResults", required = false, defaultValue = "20") Integer maxResults,
             @RequestParam(value = "dateFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,

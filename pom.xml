@@ -79,6 +79,7 @@
                 <configuration>
                     <fork>true</fork>
                     <executable>true</executable>
+                    <mainClass>ch.simas.monitor.SimonApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

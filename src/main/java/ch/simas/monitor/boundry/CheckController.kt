@@ -51,8 +51,8 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
                     val start = System.currentTimeMillis()
                     val obj = URL(host.url)
                     try {
-                        val con = obj.openConnection() as HttpURLConnection
-                        val responseCode = con.responseCode
+                        val connection = obj.openConnection() as HttpURLConnection
+                        val responseCode = connection.responseCode
                         host.status = "" + responseCode
                         host.duration = System.currentTimeMillis() - start
                     } catch (e: Exception) {

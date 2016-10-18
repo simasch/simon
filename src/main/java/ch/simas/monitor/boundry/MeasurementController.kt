@@ -28,7 +28,7 @@ open class MeasurementController(@Autowired val measurementService: MeasurementS
                 if (dateFrom == null) null else LocalDateTime.of(dateFrom, LocalTime.of(0, 0)),
                 if (dateTo == null) null else LocalDateTime.of(dateTo, LocalTime.of(23, 59)))
 
-        Collections.sort(measurements) { o1: Measurement, o2: Measurement -> o1.timestamp!!.compareTo(o2.timestamp!!) }
+        Collections.sort(measurements) { o1, o2 -> o1.timestamp.compareTo(o2.timestamp) }
         return measurements
     }
 }

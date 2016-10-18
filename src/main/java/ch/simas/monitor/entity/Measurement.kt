@@ -10,10 +10,10 @@ import javax.persistence.Id
 
 @Entity
 open class Measurement(@Id @GeneratedValue var id: Int = 0,
-                       var name: String? = null,
-                       var url: String? = null,
-                       var status: String? = null,
-                       var duration: Long? = null,
+                       var name: String = "",
+                       var url: String = "",
+                       var status: String = "",
+                       var duration: Long = 0,
                        var timestamp: LocalDateTime = LocalDateTime.now()) {
 
     val formattedTimestamp: String

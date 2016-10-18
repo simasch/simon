@@ -1,6 +1,6 @@
 package ch.simas.monitor.boundry
 
-import ch.simas.monitor.control.MeasurementService
+import ch.simas.monitor.control.MeasurementRepository
 import ch.simas.monitor.entity.Measurement
 import ch.simas.monitor.xml.Hosts
 import java.io.File
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/check")
-open class CheckController(@Value("\${simon.config.hosts}") val config: String, @Autowired val measurementService: MeasurementService) {
+open class CheckController(@Value("\${simon.config.hosts}") val config: String, @Autowired val measurementRepository: MeasurementRepository) {
 
     val latest: Hosts
         @RequestMapping("/latest")
@@ -28,7 +28,7 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
 
             hosts.group.forEach { group ->
                 group.host.forEach { host ->
-                    val measurements = measurementService.find(host.url, 1, null, null)
+                    val measurements = measurementRepository.find(host.url, 1, null, null)
                     if (!measurements.isEmpty()) {
                         val measurement = measurements[0]
                         host.status = measurement.status
@@ -58,7 +58,7 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
                     } catch (e: Exception) {
                         host.status = e.message
                     }
-                    measurementService.createMeasurement(host.name, host.url, host.status, host.duration)
+                    measurementRepository.createMeasurement(host.name, host.url, host.status, host.duration)
                 }
             }
         } catch (e: IOException) {

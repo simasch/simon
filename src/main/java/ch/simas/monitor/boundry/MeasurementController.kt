@@ -1,6 +1,6 @@
 package ch.simas.monitor.boundry
 
-import ch.simas.monitor.control.MeasurementService
+import ch.simas.monitor.control.MeasurementRepository
 import ch.simas.monitor.entity.Measurement
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-open class MeasurementController(@Autowired val measurementService: MeasurementService) {
+open class MeasurementController(@Autowired val measurementRepository: MeasurementRepository) {
 
     @RequestMapping("/measurements")
     fun getMeasurements(
@@ -22,7 +22,7 @@ open class MeasurementController(@Autowired val measurementService: MeasurementS
             @RequestParam(value = "dateFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") dateFrom: LocalDate?,
             @RequestParam(value = "dateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") dateTo: LocalDate?): List<Measurement> {
 
-        val measurements = measurementService.find(
+        val measurements = measurementRepository.find(
                 url,
                 maxResults,
                 if (dateFrom == null) null else LocalDateTime.of(dateFrom, LocalTime.of(0, 0)),

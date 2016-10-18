@@ -9,25 +9,17 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-open class Measurement : Serializable {
-
-    @Id
-    @GeneratedValue
-    var id: Int? = null
-    var name: String? = null
-    var url: String? = null
-    var status: String? = null
-    var duration: Long? = null
-    var timestamp: LocalDateTime? = null
+open class Measurement(@Id @GeneratedValue var id: Int = 0,
+                           var name: String? = null,
+                           var url: String? = null,
+                           var status: String? = null,
+                           var duration: Long? = null,
+                           var timestamp: LocalDateTime = LocalDateTime.now()) {
 
     val formattedTimestamp: String
-        get() = DTF.format(timestamp!!)
+        get() = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss").format(timestamp)
 
     val isoTimestamp: String
-        get() = DateTimeFormatter.ISO_DATE_TIME.format(timestamp!!)
+        get() = DateTimeFormatter.ISO_DATE_TIME.format(timestamp)
 
-    companion object {
-
-        private val DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
-    }
 }

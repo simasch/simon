@@ -33,7 +33,7 @@ open class CheckController (@Value("\${simon.config.hosts}") val config: String,
                         val measurement = measurements[0]
                         host.status = measurement.status
                         host.duration = measurement.duration
-                        host.timestamp = measurement.timestamp!!.format(DTF)
+                        host.timestamp = measurement.timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
                     }
                 }
             }
@@ -79,11 +79,6 @@ open class CheckController (@Value("\${simon.config.hosts}") val config: String,
             throw RuntimeException(e)
         }
 
-    }
-
-    companion object {
-
-        private val DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
     }
 
 }

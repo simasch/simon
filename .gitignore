@@ -21,3 +21,5 @@ hs_err_pid*
 /src/main/resources/static/angular/typings
 /derby.log
 /simondb
+.idea
+/simon.iml

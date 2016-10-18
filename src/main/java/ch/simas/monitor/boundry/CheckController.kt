@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/check")
-open class CheckController (@Value("\${simon.config.hosts}") val config: String, @Autowired val measurementService: MeasurementService) {
+open class CheckController(@Value("\${simon.config.hosts}") val config: String, @Autowired val measurementService: MeasurementService) {
 
     val latest: Hosts
         @RequestMapping("/latest")
         get() {
             val hosts = loadConfiguration(config)
 
-            for (group in hosts.group) {
-                for (host in group.host) {
+            hosts.group.forEach { group ->
+                group.host.forEach { host ->
                     val measurements = measurementService.find(host.url, 1, null, null)
                     if (!measurements.isEmpty()) {
                         val measurement = measurements[0]
@@ -46,8 +46,8 @@ open class CheckController (@Value("\${simon.config.hosts}") val config: String,
         try {
             val hosts = loadConfiguration(config)
 
-            for (group in hosts.group) {
-                for (host in group.host) {
+            hosts.group.forEach { group ->
+                group.host.forEach { host ->
                     val start = System.currentTimeMillis()
                     val obj = URL(host.url)
                     try {
@@ -58,7 +58,6 @@ open class CheckController (@Value("\${simon.config.hosts}") val config: String,
                     } catch (e: Exception) {
                         host.status = e.message
                     }
-
                     measurementService.createMeasurement(host.name, host.url, host.status, host.duration)
                 }
             }

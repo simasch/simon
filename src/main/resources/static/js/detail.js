@@ -20,7 +20,7 @@
                     var data = [];
                     var i = 0;
                     this.measurements.forEach(function (m) {
-                        labels[i] = m.formattedTimestamp;
+                        labels[i] = m.formatTimestamp;
                         data[i] = m.duration;
                         i++;
                     });

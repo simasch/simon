@@ -3,6 +3,8 @@ package ch.simas.monitor.boundry
 import ch.simas.monitor.control.MeasurementRepository
 import ch.simas.monitor.entity.Measurement
 import ch.simas.monitor.xml.Hosts
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import java.io.File
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/check")
 open class CheckController(@Value("\${simon.config.hosts}") val config: String, @Autowired val measurementRepository: MeasurementRepository) {
+
+    var log: Log = LogFactory.getLog(CheckController::class.toString())
 
     val latest: Hosts
         @RequestMapping("/latest")
@@ -56,7 +60,7 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
                         host.status = "" + responseCode
                         host.duration = System.currentTimeMillis() - start
                     } catch (e: Exception) {
-                        e.printStackTrace()
+                        log.error(e.message, e)
                         host.status = e.message
                     }
                     measurementRepository.createMeasurement(host.name, host.url, host.status, host.duration)

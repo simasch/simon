@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <kotlin.version>1.0.5-3</kotlin.version>
+        <kotlin.version>1.0.6</kotlin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -139,8 +139,8 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <source>target/generated-sources/jaxb</source>
                                 <source>src/main/java</source>
+                                <source>target/generated-sources/jaxb</source>
                             </sourceDirs>
                         </configuration>
                     </execution>

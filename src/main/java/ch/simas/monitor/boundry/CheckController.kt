@@ -56,6 +56,7 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
                         host.status = "" + responseCode
                         host.duration = System.currentTimeMillis() - start
                     } catch (e: Exception) {
+                        e.printStackTrace()
                         host.status = e.message
                     }
                     measurementRepository.createMeasurement(host.name, host.url, host.status, host.duration)

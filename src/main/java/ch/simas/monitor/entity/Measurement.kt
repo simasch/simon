@@ -13,7 +13,7 @@ open class Measurement(@Id @GeneratedValue var id: Int = 0,
                        var name: String = "",
                        var url: String = "",
                        var status: String = "",
-                       var duration: Long = 0,
+                       var duration: Long? = 0,
                        var timestamp: LocalDateTime = LocalDateTime.now()) {
 
     val formattedTimestamp: String

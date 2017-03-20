@@ -23,26 +23,25 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/check")
 open class CheckController(@Value("\${simon.config.hosts}") val config: String, @Autowired val measurementRepository: MeasurementRepository) {
 
-    var log: Log = LogFactory.getLog(CheckController::class.toString())
+    private val log: Log = LogFactory.getLog(CheckController::class.toString())
 
-    val latest: Hosts
-        @RequestMapping("/latest")
-        get() {
-            val hosts = loadConfiguration(config)
+    @RequestMapping("/latest")
+    fun getLatest(): Hosts {
+        val hosts = loadConfiguration(config)
 
-            hosts.group.forEach { group ->
-                group.host.forEach { host ->
-                    val measurements = measurementRepository.find(host.url, 1, null, null)
-                    if (!measurements.isEmpty()) {
-                        val measurement = measurements[0]
-                        host.status = measurement.status
-                        host.duration = measurement.duration
-                        host.timestamp = measurement.timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
-                    }
+        hosts.group.forEach { group ->
+            group.host.forEach { host ->
+                val measurements = measurementRepository.find(host.url, 1, null, null)
+                if (!measurements.isEmpty()) {
+                    val measurement = measurements[0]
+                    host.status = measurement.status
+                    host.duration = measurement.duration
+                    host.timestamp = measurement.timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
                 }
             }
-            return hosts
         }
+        return hosts
+    }
 
     @RequestMapping
     @Scheduled(cron = "0 */10 * * * ?")

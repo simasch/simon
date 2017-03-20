@@ -59,6 +59,7 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
                         val responseCode = connection.responseCode
                         host.status = "" + responseCode
                         host.duration = System.currentTimeMillis() - start
+                        connection.disconnect();
                     } catch (e: Exception) {
                         log.error(e.message, e)
                         host.status = e.message

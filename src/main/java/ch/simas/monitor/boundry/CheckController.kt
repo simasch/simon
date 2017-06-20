@@ -44,7 +44,7 @@ open class CheckController(@Value("\${simon.config.hosts}") val config: String, 
     }
 
     @RequestMapping
-    @Scheduled(cron = "0 */5 * * * ?")
+    @Scheduled(initialDelay = 1 * 60 * 1000, fixedRate = 1 * 60 * 5000)
     fun check() {
         try {
             val hosts = loadConfiguration(config)

@@ -15,13 +15,7 @@ open class MeasurementRepository(@PersistenceContext val em: EntityManager) {
 
     @Transactional
     open fun createMeasurement(name: String, url: String, status: String, time: Long) {
-        val measurement = Measurement()
-        measurement.name = name
-        measurement.url = url
-        measurement.status = status
-        measurement.duration = time
-        measurement.timestamp = LocalDateTime.now()
-
+        val measurement = Measurement(name = name, url = url, status = status, duration = time, timestamp = LocalDateTime.now());
         em.persist(measurement)
     }
 
